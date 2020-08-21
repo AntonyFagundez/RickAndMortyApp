@@ -1,4 +1,5 @@
 import { loginWithGoogle, logoutWithGoogle } from '../firebase'
+import { retrieveFavs } from './charsDuck'
 
 //const
 const LOGIN = 'LOGIN';
@@ -41,7 +42,7 @@ export default function reducer(state = initialData, action){
 }
 
 //aux
-function saveStorage(storage){
+export function saveStorage(storage){
     localStorage.storage = JSON.stringify(storage);
 }
 
@@ -63,7 +64,8 @@ export let doGoogleLoginAction = () => (dispatch, getState) =>{
                     photoURL: user.photoURL,
                 }
             })
-            saveStorage(getState())
+            saveStorage(getState());
+            retrieveFavs()(dispatch, getState)
         })
         .catch(err =>{
             dispatch({

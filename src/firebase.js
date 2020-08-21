@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+require('firebase/firestore')
 // import 'firebase/auth';
 require('firebase/auth')
 
@@ -15,6 +16,13 @@ let firebaseConfig = {
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+let db = firebase.firestore().collection('favs');
+
+
+export function updateDB(array, uid){
+    return db.doc(uid).set({favorites : [...array]})
+}
+
 export function loginWithGoogle(){
 
     let provider = new firebase.auth.GoogleAuthProvider();
@@ -28,4 +36,11 @@ export function logoutWithGoogle(){
 
     return firebase.auth().signOut();
 
+}
+
+export function getFavs(uid){
+    return db.doc(uid).get()
+        .then(snap =>{
+            return snap.data().favorites;
+        })
 }
