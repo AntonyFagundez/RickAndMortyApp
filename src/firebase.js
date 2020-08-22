@@ -12,8 +12,8 @@ let firebaseConfig = {
     storageBucket: "rick-y-morty-5668f.appspot.com",
     messagingSenderId: "218121338091",
     appId: "1:218121338091:web:399df9eabe8391a7cad2ae"
-  };
-  // Initialize Firebase
+};
+// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 let db = firebase.firestore().collection('favs');
